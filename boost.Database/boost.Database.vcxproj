@@ -85,6 +85,7 @@
     <ClInclude Include="include\boost\database.hpp" />
     <ClInclude Include="include\boost\database\connection_attributes.hpp" />
     <ClInclude Include="include\boost\database\database_error.hpp" />
+    <ClInclude Include="include\boost\database\detail\apply.h" />
     <ClInclude Include="include\boost\database\detail\postgres\postgres_database_impl.hpp" />
     <ClInclude Include="include\boost\database\selectable.hpp" />
   </ItemGroup>

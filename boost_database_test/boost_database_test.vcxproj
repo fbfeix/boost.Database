@@ -193,6 +193,7 @@
       <UseFullPaths Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</UseFullPaths>
       <UseFullPaths Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</UseFullPaths>
       <UseFullPaths Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</UseFullPaths>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">-D_SCL_SECURE_NO_WARNINGS %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <AdditionalDependencies Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">libpq.lib;%(AdditionalDependencies)</AdditionalDependencies>

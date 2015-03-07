@@ -17,43 +17,36 @@
 #define BOOST_DATABASE_SELECTABLE_HPP
 
 #include <boost/tuple/tuple.hpp>
-
+#include <boost/database/detail/apply.h>
 
 
 namespace boost
 {
 namespace database
 {
-	template<typename T = wchar_t, size_t fields>
-	class Selectable
-	{
-		typedef boost::array < std::basic_string<T, std::char_traits<T> >, fields > SelectArgumentType;
 
-#ifdef BOOST_USE_POSTGRES_DATABASE
-		friend class postgres_database_impl
-#endif
-
-	public:		
-		template<typename... Ts>
-		Selectable(const SelectArgumentType&) = 0;
-
-	protected:
-		Selectable() {}
-	};
-
-
-
-	/*
+	/**
+	* for selectable classes, it is required to have a static
+	* method which creates the object, because static methods can't
+	* be overwritten
+	* The variadic Template (class...Ts) is dependent to the class
+	* instead of the function to allow multiple inheritance of it!
 	*/
-	class MultiSelectable
-	{
-	public:
-		MultiSelectable(char*...)
-		{}
-	private:
-		MultiSelectable() {}
+	/* class iSelectable */
+	template <typename...> struct iSelectable;
+
+	template <class... Ts> struct iSelectable {
+		template <typename T> static inline T select(Ts &&... params) { return T(std::forward<Ts>(params)...); }
 	};
+
+	/* selector_helper */
+	template <typename TT, class... Ts> struct selector_helper {
+		static inline TT doSelect(Ts &&... params) { return iSelectable<Ts...>::template select<TT>(std::forward<Ts>(params)...); }
+	};
+
 
 }} // boost::database
+
+
 
 #endif // BOOST_DATABASE_SELECTABLE_HPP

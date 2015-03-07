@@ -14,8 +14,8 @@
 
 // -----------------------------------------------------------------------------
 
-#ifndef BOOST_DATABASE_SELECTABLE_HPP
-#define BOOST_DATABASE_SELECTABLE_HPP
+#ifndef BOOST_DATABASE_HPP
+#define BOOST_DATABASE_HPP
 
 #include <boost/noncopyable.hpp>
 #include <boost/database/connection_attributes.hpp>
@@ -29,6 +29,7 @@
 #include <boost/database/detail/postgres/postgres_database_impl.hpp>
 #endif
 
+#include <boost/database/selectable.hpp>
 
 namespace boost
 {
@@ -57,6 +58,12 @@ namespace boost
 				return impl_->select < T, fields >(sql);
 			}
 
+			template<typename T, typename...Ts>
+			T select_(const std::string& sql)
+			{
+				return impl_->select_<T, Ts...>(sql);
+			}
+
 
 			bool insert(const std::string& sql)
 			{
@@ -77,5 +84,5 @@ namespace boost
 	}
 } // boost::database
 
-#endif // BOOST_DATABASE_SELECTABLE_HPP
+#endif // BOOST_DATABASE_HPP
 

@@ -1,7 +1,9 @@
 
+#include "stdafx.h"
+
 #define BOOST_USE_POSTGRES_DATABASE
 
-#include "stdafx.h"
+
 #include <boost/database.hpp>
 #include <boost/foreach.hpp>
 #include <iostream>
